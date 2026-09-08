@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpmetLab Weather Intelligence for Aviation and Autonomous Systems</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; color: #1a1a2e; background: #fff; }
+
+        header {
+            background: #0a1628;
+            padding: 18px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { color: #fff; font-size: 1.4rem; font-weight: 700; letter-spacing: 1px; }
+        .logo span { color: #4fc3f7; }
+        nav a { color: #b0c4d8; text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: color 0.2s; }
+        nav a:hover { color: #fff; }
+
+        .hero {
+            background: linear-gradient(135deg, #060e1a 0%, #0d2137 60%, #0a2a4a 100%);
+            color: #fff;
+            padding: 110px 48px 90px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 140%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(79,195,247,0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(79,195,247,0.15);
+            color: #4fc3f7;
+            border: 1px solid rgba(79,195,247,0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .hero h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.2; margin-bottom: 22px; }
+        .hero h1 span { color: #4fc3f7; }
+        .hero p { font-size: 1.15rem; color: #8fb3cc; max-width: 700px; margin: 0 auto 44px; line-height: 1.75; }
+        .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-block;
+            background: #4fc3f7;
+            color: #0a1628;
+            padding: 14px 34px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #4fc3f7;
+            border: 2px solid rgba(79,195,247,0.5);
+            color: #a0d8f0;
+        }
+
+        .section { padding: 90px 48px; max-width: 1120px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2rem; font-weight: 700; color: #0a1628; margin-bottom: 12px; }
+        .section-title p { color: #667; font-size: 1.05rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+        .research-card {
+            border-radius: 12px;
+            padding: 36px 30px;
+            background: #f7fbff;
+            border: 1px solid #ddeaf5;
+            transition: box-shadow 0.2s;
+        }
+        .research-card:hover { box-shadow: 0 8px 32px rgba(10,22,40,0.08); }
+        .research-card .icon { font-size: 2.2rem; margin-bottom: 18px; }
+        .research-card h3 { font-size: 1.1rem; font-weight: 700; color: #0a1628; margin-bottom: 10px; }
+        .research-card p { color: #556; font-size: 0.94rem; line-height: 1.65; }
+
+        .highlight {
+            background: linear-gradient(135deg, #0a1628, #1a3a5c);
+            color: #fff;
+            padding: 90px 48px;
+        }
+        .highlight-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .highlight h2 { font-size: 2rem; font-weight: 700; margin-bottom: 18px; }
+        .highlight h2 span { color: #4fc3f7; }
+        .highlight p { color: #8fb3cc; line-height: 1.75; margin-bottom: 18px; font-size: 1rem; }
+        .highlight-points { list-style: none; }
+        .highlight-points li { color: #b0c4d8; font-size: 0.95rem; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: flex-start; gap: 10px; }
+        .highlight-points li::before { content: '→'; color: #4fc3f7; font-weight: 700; flex-shrink: 0; }
+
+        .tech-section { background: #f4f8fc; padding: 70px 48px; }
+        .tech-inner { max-width: 1120px; margin: 0 auto; }
+        .tech-inner .section-title { margin-bottom: 48px; }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .tech-tag {
+            background: #0a1628;
+            color: #4fc3f7;
+            padding: 9px 22px;
+            border-radius: 22px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+        }
+
+        .contact-section {
+            background: #060e1a;
+            color: #fff;
+            padding: 90px 48px;
+            text-align: center;
+        }
+        .contact-section h2 { font-size: 2rem; margin-bottom: 14px; }
+        .contact-section p { color: #8fb3cc; margin-bottom: 32px; font-size: 1.05rem; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+        .contact-email { color: #4fc3f7; text-decoration: none; font-weight: 700; font-size: 1.15rem; border-bottom: 1px solid rgba(79,195,247,0.3); padding-bottom: 2px; }
+
+        footer {
+            background: #040a12;
+            color: #444;
+            text-align: center;
+            padding: 22px;
+            font-size: 0.82rem;
+        }
+
+        @media (max-width: 700px) {
+            .highlight-inner { grid-template-columns: 1fr; gap: 30px; }
+            .hero h1 { font-size: 1.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Opmet<span>Lab</span></div>
+    <nav>
+        <a href="#research">Research</a>
+        <a href="#uspace">U-Space</a>
+        <a href="#tech">Technology</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="badge">Independent Research Laboratory</div>
+    <div style="display:inline-block; background:rgba(255,180,0,0.15); color:#ffd060; border:1px solid rgba(255,180,0,0.35); padding:6px 16px; border-radius:20px; font-size:0.78rem; font-weight:600; letter-spacing:0.8px; text-transform:uppercase; margin-bottom:20px;">🚧 Platform currently in active development</div>
+    <h1>Weather Intelligence<br>for <span>Aviation and Autonomous Systems</span></h1>
+    <p>OpmetLab is an independent research laboratory focused on real-time meteorological data integration, quality assessment, and applied research for aviation and unmanned aerial systems.</p>
+    <div class="hero-btns">
+        <a href="#research" class="btn">Our research</a>
+        <a href="#contact" class="btn btn-outline">Get in touch</a>
+    </div>
+</section>
+
+<div class="section" id="research">
+    <div class="section-title">
+        <h2>Research Areas</h2>
+        <p>We investigate the integration, quality, and operational use of meteorological data across the aviation domain.</p>
+    </div>
+    <div class="research-grid">
+        <div class="research-card">
+            <div class="icon">🛰️</div>
+            <h3>Real-time OPMET data pipelines</h3>
+            <p>Research on low-latency ingestion of METAR, SPECI, TAF and SIGMET from certified sources via SWIM/AMQP and WIS2/MQTT. Comparative analysis of data latency across different distribution channels.</p>
+        </div>
+        <div class="research-card">
+            <div class="icon">🚁</div>
+            <h3>Meteorology for UAV / drone operations</h3>
+            <p>Development of weather decision algorithms for BVLOS operations and U-Space integration. Assessment of meteorological thresholds for safe drone corridor planning in low-altitude airspace.</p>
+        </div>
+        <div class="research-card">
+            <div class="icon">🌦️</div>
+            <h3>High-resolution local forecasting</h3>
+            <p>Downscaling of NWP models (AROME, ARPEGE) for site-specific aeronautical applications. Evaluation of nowcasting techniques for rapidly evolving conditions at aerodromes.</p>
+        </div>
+        <div class="research-card">
+            <div class="icon">🔍</div>
+            <h3>OPMET data quality assessment</h3>
+            <p>Systematic comparison and validation of meteorological observations from multiple sources GTS bulletins, SWIM services, SYNOP networks to quantify consistency and reliability.</p>
+        </div>
+        <div class="research-card">
+            <div class="icon">📊</div>
+            <h3>Aviation weather data formats</h3>
+            <p>Research on IWXXM, BUFR and legacy TAC formats. Development of open-source parsing and conversion tools for the aeronautical meteorological community.</p>
+        </div>
+        <div class="research-card">
+            <div class="icon">⚠️</div>
+            <h3>Threshold alerting systems</h3>
+            <p>Automated detection and notification of meteorological threshold exceedances (wind, visibility, ceiling, temperature) relevant to aerodrome operations and flight planning.</p>
+        </div>
+    </div>
+</div>
+
+<section class="highlight" id="uspace">
+    <div class="highlight-inner">
+        <div>
+            <h2>U-Space <span>and Drone Meteorology</span></h2>
+            <p>The rapid growth of unmanned aerial systems in controlled low-altitude airspace creates new requirements for meteorological data requirements that existing aviation weather services were not designed to meet.</p>
+            <p>OpmetLab investigates how certified aeronautical weather data can be adapted, redistributed, and integrated into U-Space service provider (USSP) architectures in compliance with EU regulation 2021/664.</p>
+            <ul class="highlight-points">
+                <li>Real-time wind and turbulence data for dynamic geofencing</li>
+                <li>Visibility and ceiling monitoring for BVLOS corridor management</li>
+                <li>Precipitation and icing detection for drone fleet operations</li>
+                <li>Integration with ECTL/EUROCONTROL U-Space frameworks</li>
+                <li>Assessment of METAR and SYNOP data relevance for low-altitude ops</li>
+            </ul>
+        </div>
+        <div>
+            <h2>Data Sources <span>and Integration</span></h2>
+            <p>Our research requires access to certified, low-latency meteorological data from national and international providers. We work with and evaluate the following data distribution frameworks:</p>
+            <ul class="highlight-points">
+                <li>SWIM (System Wide Information Management) EUROCONTROL Yellow Profile</li>
+                <li>WIS2 WMO Information System, MQTT-based global brokering</li>
+                <li>GTS / AMHS Global Telecommunication System bulletin feeds</li>
+                <li>National open data APIs FMI, KNMI, AEMET, MeteoGate EUMETNET</li>
+                <li>Certified national OPMET push services (AMQP/SWIM)</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="tech-section" id="tech">
+    <div class="tech-inner">
+        <div class="section-title">
+            <h2>Technologies & Standards</h2>
+            <p>Our research is grounded in international aviation and meteorological standards.</p>
+        </div>
+        <div class="tech-tags">
+            <span class="tech-tag">IWXXM 3.0</span>
+            <span class="tech-tag">SWIM Yellow Profile</span>
+            <span class="tech-tag">AMQP 1.0</span>
+            <span class="tech-tag">MQTT / WIS2</span>
+            <span class="tech-tag">OGC WFS</span>
+            <span class="tech-tag">METAR / SPECI</span>
+            <span class="tech-tag">TAF</span>
+            <span class="tech-tag">SIGMET / AIRMET</span>
+            <span class="tech-tag">BUFR</span>
+            <span class="tech-tag">GTS Bulletins</span>
+            <span class="tech-tag">ICAO Annex 3</span>
+            <span class="tech-tag">EU Reg. 2021/664</span>
+            <span class="tech-tag">EUROCONTROL CP1</span>
+            <span class="tech-tag">U-Space</span>
+            <span class="tech-tag">Python / asyncio</span>
+            <span class="tech-tag">Open-source</span>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section" id="contact">
+    <h2>Contact us</h2>
+    <p>Interested in collaboration, data access partnerships, or our research findings? We welcome exchanges with meteorological service providers, aviation stakeholders and researchers.</p>
+    <div style="margin-bottom:28px; color:#b0c4d8; font-size:0.95rem; line-height:2;">
+        <strong style="color:#fff;">OpmetLab Research Initiative</strong><br>
+        Lead Researcher: Bruno Loustau<br>
+        Contact: <a href="mailto:contact@opmetlab.com" class="contact-email">contact@opmetlab.com</a><br>
+        Location: Paris, France
+    </div>
+</section>
+
+<footer>
+    &copy; 2026 OpmetLab Independent Research Laboratory · Aviation Meteorological Data
+</footer>
+
+</body>
+</html>
